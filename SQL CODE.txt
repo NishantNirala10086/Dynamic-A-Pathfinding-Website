@@ -1,0 +1,34 @@
+-- Create database
+CREATE DATABASE a_star_pathfinding;
+
+-- Use the database
+USE a_star_pathfinding;
+
+-- Table to store city information
+CREATE TABLE cities (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    latitude FLOAT,
+    longitude FLOAT,
+    heuristic FLOAT
+);
+
+-- Table to store routes (edges)
+CREATE TABLE routes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    source_id INT,
+    destination_id INT,
+    distance FLOAT,
+    FOREIGN KEY (source_id) REFERENCES cities(id),
+    FOREIGN KEY (destination_id) REFERENCES cities(id)
+);
+
+-- Table to store computed paths
+CREATE TABLE results (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    start_city VARCHAR(100),
+    goal_city VARCHAR(100),
+    path TEXT,
+    total_cost FLOAT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
